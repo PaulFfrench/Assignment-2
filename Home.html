@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Assignment 2 </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" type="text/css">
+  <link href="css/lightbox.css" rel="stylesheet" type="text/css" >
+  <link rel ="stylesheet" href="css/style.css">
+
+</head>
+<body>
+	<div class="ui inverted vertical masthead center aligned segment">
+		<div class="ui container">
+		
+			<div class="ui large secondary inverted pointing menu">
+				<div class="item">
+					<img src="images/Logo.png" alt="hello" >
+				</div>
+				<a class="active item" href="Home.html">Home</a>
+		
+				<div class="ui pointing dropdown item">
+					<span class="text">Albums</span>
+					<i class="dropdown icon"></i>
+					<div id="albums" class="menu">
+						<div class="header">Albums</div>
+					</div>
+				</div>
+			</div>		
+		</div>
+		<div class="ui container width" id="slideshow">
+			<div id="photo">
+				<img class="ui fluid image" src="images/gorrilaz-home1.jpg" id="imagehome">
+			</div>
+		</div>
+	</div>
+
+<script id="handlebars-dropdown" type="text/x-handlebars-template">
+	{{#each albums}}
+		<a href="Songs.html?id={{id}}" class="item" >{{name}}</a>
+	{{/each}}
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.1/handlebars.min.js"></script>            
+<script src="js/albums.js"></script>
+
+<script> 
+
+$(document).ready(function() {
+
+let template1 = Handlebars.compile($('#handlebars-dropdown').html());
+let thecontent1 = template1(context);
+
+$("#albums").append(thecontent1);
+
+slide1();
+
+$(".ui.dropdown").dropdown();
+
+});
+
+function slide1(){
+var image = $("#photo img")
+image.attr("src","images/gorrilaz-home1.jpg").fadeIn(2000);
+image.fadeOut(3000,slide2);
+};
+
+function slide2(){
+var image = $("#photo img")
+image.attr("src","images/gorrilaz-home2.jpg").fadeIn(2000);
+image.fadeOut(3000,slide3);
+};
+
+function slide3(){
+var image = $("#photo img")
+image.attr("src","images/gorrilaz-home3.jpg").fadeIn(2000);
+image.fadeOut(3000,slide1);
+};
+</script>
+</body>
+</html>

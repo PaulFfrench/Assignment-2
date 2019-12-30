@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Assignment 2 </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" type="text/css">
+  <link href="css/lightbox.css" rel="stylesheet" type="text/css" >
+  <link rel ="stylesheet" href="css/style.css">
+
+</head>
+<body>
+	
+	<div class="ui inverted vertical masthead segment">
+		<div class="ui container">
+			<div class="ui large secondary inverted pointing menu">
+				<div class="item">
+					<img src="images/Logo.png" alt="hello" >
+				</div>
+				<a class="item" href="Home.html">Home</a>
+		
+				<div class="ui pointing dropdown item">
+					<span class="text">Albums</span>
+					<i class="dropdown icon"></i>
+					<div id="albums" class="menu">
+						<div class="header">Albums</div>
+
+					</div>
+				</div>
+				<div class="right item">
+					<button class="ui inverted button" id="btncall">Create Album</button>
+				</div>
+			</div>		
+		</div>
+			<div id="songs"></div>
+	</div>
+		<div class="ui container">
+			<div id="content-placeholder"></div>
+		</div>
+	
+<script id="handlebars-dropdown" type="text/x-handlebars-template">
+	{{#each albums}}
+		<a href="Songs.html?id={{id}}" class="item" >{{name}}</a>
+	{{/each}}
+</script>
+
+<script id="handlebars-songs" type="text/x-handlebars-template">
+	{{#each albums}}
+	{{#iff id '==' ../selected}}
+		<ul>
+			<div class="ui grid">
+			<div class="four wide column">
+			<a href="{{photo}}" data-title = "Album Cover" data-lightbox="thumbnail"><img src="{{photo}}" id="thumbnail"></a>
+			</div>
+			<div class="twelve wide column">
+			<li>{{year}}</li>
+			<div class="ui inverted accordion">
+				<div class="active title">
+				<i class="dropdown icon"></i>{{name}}
+				</div>
+					<div class="active content">
+						<ul>
+						{{#each songs}}
+							<li>{{name}}</li>
+						{{/each}}
+						</ul>
+					</div>
+			</div>
+			</div>
+			</div>
+		</ul>
+	{{/iff}}
+	{{/each}}
+</script>
+
+<div class="ui container">
+	<script id="emp-template" type="text/x-handlebars-template">
+		<header>
+			<h1>{{title}}</h1>
+		</header>
+		<section>
+			<table class="ui selectable inverted table" >
+				<thead>
+					<tr>
+						<th>Album name</th>
+						<th>Artists name</th>
+						<th>Song Title</th>
+						<th>Genre</th>
+						<th>BPM</th>
+						<th>Email Address</th>
+					</tr>
+				</thead>
+				<tbody>
+				{{#each employee}}
+					<tr>
+						<td>{{albumname}}</td>
+						<td>{{firstname}} {{lastname}} </td>
+						<td>{{songtitle}}</td>
+						<td>{{genre}}</td>
+						<td>{{bpm}}</td>
+						<td>{{email}}</td>
+					</tr>
+				{{/each}}
+				</tbody>
+			</table>
+		</section>
+	</script>
+
+	<div class="ui modal empform">
+		<i class="close icon"></i>
+		<div class="header">
+			<h1>Create your own Album</h1>
+		</div>
+
+		<form name = 'albumlist' id = "albumlist" class = "ui form" >
+			<div class="inline field">
+				<label for = "albumname" class="two wide field">Album name</label>
+				<input type = "text" class="eight wide field"  name="albumname" id ="albumname" autofocus  required pattern = "[A-Z][a-z]+( [A-Z][a-z]+)?"
+								title="Please enter the album name with First Letter captalised">
+			</div>
+
+			<div class="inline field">
+				<label for = "firstname" class="two wide field">First Name</label>
+				<input type = "text" name="firstname" id="firstname" class="eight wide field" required pattern = "[A-Z][a-z]+( [A-Z][a-z]+)?"
+								title="Please enter your first name with First Letter capitalised">
+			</div>
+
+			<div class="inline field">
+				<label for = "lastname" class="two wide field">Last Name</label>
+				<input type = "text" name="lastname" id="lastname" class="eight wide field" required pattern = "[A-Z][a-z]+( [A-Z][a-z]+)?"
+								title="Please enter a Surname (Second name optional) with First Letter capitalised">
+			</div>
+
+			<div class="inline field">
+				<label for = "songtitle" class="two wide field">Song Title</label>
+				<input type = "text" name="songtitle" id="songtitle" class="eight wide field" required pattern = "[A-Z][a-z]+" 
+								title ="Please enter a song title with First Letter capitalised">
+			</div>
+
+			<div class="inline field">
+				<label for = "genre" class="two wide field">Genre</label>
+				<input type = "text" name="genre" id="genre" class="eight wide field" required pattern = "[A-Z][a-z]+" 
+								title ="Please enter a genre with First Letter capitalised">
+			</div>
+
+			<div class="inline field">
+				<label for = "bpm" class="two wide field">BPM</label>
+				<input type = "number" name="bpm" id="bpm" class="eight wide field" 
+									title ="Please enter a numeric value"
+			</div>
+
+			<div class="inline field">
+				<label for = "email" class="two wide field">Email Address</label>
+				<input type = "email" name="email" id="email" class="eight wide field" required pattern = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"
+									title="Please enter a valid email">
+			</div>
+
+			<input type="submit" id="thesubmit" class="ui primary button" value="add album">
+
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.1/handlebars.min.js"></script>            
+<script src="js/handlebars_conditionals.js"></script>
+<script src="js/albums.js"></script>
+<script> 
+
+$(document).ready(function() {
+  
+$("#btncall").on('click', function(){
+		$(".empform").modal('show');
+});
+
+var queryString = window.location.search;
+var	urlParams = new URLSearchParams(queryString); 
+var	albumId = urlParams.get('id');
+context.selected = albumId;
+
+let template1 = Handlebars.compile($('#handlebars-dropdown').html());
+let thecontent1 = template1(context);
+
+$("#albums").append(thecontent1);
+
+let template2 = Handlebars.compile($('#handlebars-songs').html());
+let thecontent2 = template2(context);
+
+$("#songs").append(thecontent2);
+
+let template   = Handlebars.compile($("#emp-template").html());
+let theCompiledHtml = template(dept);
+
+$("#content-placeholder").html(theCompiledHtml);
+
+$(".ui.dropdown").dropdown();
+
+$('.ui.accordion')
+  .accordion();
+ 
+$('#albumlist').submit(function(evt) {
+	evt.preventDefault();
+
+  newemp= {
+	 albumname:$('#albumname').val(),
+	 firstname:$('#firstname').val(),
+	 lastname:$('#lastname').val(),
+	 songtitle:$('#songtitle').val(),
+	 genre:$('#genre').val(),
+	 bpm:$('#bpm').val(),
+	 email:$('#email').val()
+  }
+  
+  dept.employee.push(newemp);
+
+  let theCompiledHtml = template(dept);
+  $("#content-placeholder").html(theCompiledHtml);
+
+  $('.empform').modal('hide');
+  
+  $('input[type="text"]').each(function() {
+		$(this).val("");
+  });
+  $('input[type="email"]').val("");
+  return false;
+});
+
+lightbox.option({
+		       'fadeDuration':1200,//default * 2
+		       'imageFadeDuration':2400,//default * 4
+		       'wrapAround': true
+		  })
+
+});
+
+</script>
+
+</body>
+</html>
+
